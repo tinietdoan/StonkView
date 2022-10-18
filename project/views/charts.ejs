@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <!-- Bootstrap core CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+    <link href="../resources/css/charts.css" rel="stylesheet">
+    <title>Charts</title>
+    
+    <nav class="navbar navbar-expand-xl navbar-light" style="background-color: #2C302E;">
+      <ul class="nav navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="/"><img src="../resources/img/stonkpeg.png" width="80px" /></a></li>
+        <li class="nav-item"><a class="nav-link" href="/news" style="color:white">News</a></li>
+        <li class="nav-item"><a class="nav-link" href="/network" style="color:white">Network</a></li>
+        <li class="nav-item"><a class="nav-link" href="/charts" style="color:white">Charts</a></li>
+        <li class="nav-item"><a class="nav-link" href="/messaging" style="color:white">Messaging</a></li>
+        <!-- <li class="nav-item"><a class="nav-link" href="/notifications" style="color:white">Notifications</a></li> -->
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="/account/<%= currUser._id %>" style="color:white">Account</a></li>
+        <div class="form-inline my-2 my-lg-0">
+          <form action="/logout?_method=DELETE" method="POST">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+          </form>
+        </div>
+      </ul>
+    </nav>
+  </head>
+  <body>
+    <div class="container">
+    </br>
+      <div onload="testConsole()" class="page-explanation">
+        <h1>Charts</h1>
+        <p>Welcome to the charts page! Simply use the search bar to enter a stock ticker from the NYSE, Nasdaq, or S&P 500 and view a custom candlestick chart. Use the table on the left to view relevant stock data.</p>
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <form onsubmit="loadStocksPage(event)">
+            <div class="container-fluid text-center" style="padding: 20px;">
+              <input class="input-stonk" placeholder="Enter stock ticker (CAPS)" type="text" id="searchStockTicker" name="ticker">
+              <button class="button-submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="current-stock-container">
+            <table id="stockDataTable">
+              <tr class="stock-info-align">
+                <th>Stock Name:</th>
+                <th style="text-align: center;"><%- stockTicker %></th>
+              </tr>
+              <tr>
+                <th>Open Price:</th>
+                <td><%
+                  if(data) {%>
+                    <%- data.o %>
+                  <% }%>
+                </td>
+              </tr>
+              <tr>
+                <th>High Price:</th>
+                <td><%
+                  if(data) {%>
+                    <%- data.h %>
+                  <% }%></td>
+              </tr>
+              <tr>
+                <th>Low Price</th>
+                <td><%
+                  if(data) {%>
+                    <%- data.l %>
+                  <% }%></td>
+              </tr>
+              <tr>
+                <th>Current Price</th>
+                <td><%
+                  if(data) {%>
+                    <%- data.c %>
+                  <% }%></td>
+              </tr>
+              <tr>
+                <th>Previous Close</th>
+                <td><%
+                  if(data) {%>
+                    <%- data.pc %>
+                  <% }%></td>
+              </tr>
+              <tr>
+                <th>Volume</th>
+                <td><%
+                  if(data) {%>
+                    <%- data.t %>
+                  <% }%></td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="stock-iframe-container" id="chartContainer" style="height: 380px; width: 100%;">
+            <div style="border: 1px solid #e0e3eb; height: 100%; width: 100%">
+            <%
+            if(stockTicker) {%>
+              <% var widget = '<iframe width="100%" frameBorder="0" height="100%" src="https://widget.finnhub.io/widgets/stocks/chart?symbol=' + stockTicker + '&watermarkColor=%231db954&backgroundColor=%23222222&textColor=white" title="ARKK Holdings Data by Finnhub Stock API">'; %>
+              <%- widget %>
+            <% }%>
+            <iframe width="100%" frameBorder="0"
+              height="100%"
+              src="https://widget.finnhub.io/widgets/stocks/chart?symbol=VTSAX&watermarkColor=%231db954&backgroundColor=%23222222&textColor=white" title="ARKK Holdings Data by Finnhub Stock API">
+            </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <!-- <script src="../resources/js/charts.js"></script> -->
+  <!-- <%- include("partials/footer") %> -->
+</html>

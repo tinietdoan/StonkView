@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="description" content="" />
+    
+        <!-- Bootstrap core CSS -->
+        <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous"
+        />
+        <link href="../resources/css/charts.css" rel="stylesheet">
+        <title>Notifications</title>
+        <nav class="navbar navbar-expand-xl navbar-light" style="background-color: #2C302E;">
+          <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/"><img src="../resources/img/stonkpeg.png" width="80px" /></a></li>
+            <li class="nav-item"><a class="nav-link" href="/news" style="color:white">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="/network" style="color:white">Network</a></li>
+            <li class="nav-item"><a class="nav-link" href="/charts" style="color:white">Charts</a></li>
+            <li class="nav-item"><a class="nav-link" href="/messaging" style="color:white">Messaging</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" href="/notifications" style="color:white">Notifications</a></li> -->
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/account/<%= currUser._id %>" style="color:white">Account</a></li>
+            <div class="form-inline my-2 my-lg-0">
+              <form action="/logout?_method=DELETE" method="POST">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+              </form>
+            </div>
+          </ul>
+        </nav>
+      </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Notifications</h1>
+        <p>Here, you can view some updates about the stocks you follow! We will give you updates every day at 2PM MST, when the market closes fro the day.</p>
+      </div>
+
+      <div id="notifCards">
+        <% if (stocksPortfolio && notifList) { %>
+          <% console.log(stocksPortfolio) %>
+          <% console.log(notifList) %>
+          <% notifList.forEach(notif) => { %>
+            <div class="card">
+            <% stocksData.forEach(stock) => { %>
+                <div class="card-body">
+                  <h5 class="card-title"><%- notif.date %></h5>
+                  <p class="card-text"><b> <%- stock.s %> </b></p>
+                  <p class="card-text">Current Price: <%- stock.c %></p>
+                  <p class="card-text">High Price of the Day: <%- stock.h %></p>
+                  <p class="card-text">Low Price of the Day: <%- stock.l %></p>
+                </div>
+              </div>
+            <br>
+          </div>
+            <% } %>
+          <% } %>
+        <% } %>
+      </div>
+  </body>
+    <!-- <%- include("partials/footer") %> -->
+</html>
